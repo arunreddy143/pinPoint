@@ -61,6 +61,7 @@
  <script src="assets/js/app.js"></script>
 
  <script type="text/ng-template" id="customTemplate.html">
+ 
   <a>
       <span ng-bind-html="match">{{match.model['Address Line 1']}}, {{match.model['Address Line 2'] }}</span>, 
       <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
