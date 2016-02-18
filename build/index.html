@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="pinPoint">
+<head>
+  <title>Pin Point</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+  
+</head>
+<body>
+<div class="container" >
+	
+	<h1>PinPoint Finder – Find an Address</h1>
+	<p><em>Fill in the details you know and we'll do the rest</em></p>
+  <div class="panel-group">
+  <div class="panel panel-default">
+  	<div class="panel-heading"><h3>Type part of an address or postcode to begin</h3></div>
+    <div class="panel-body">
+
+    	<!-- <form role="form">
+		  <div class="form-group">
+		    <label for="postSearch">Search by</label>
+		    <input type="text" name="postSearch" id="postSearch" value="" placeholder="E.g. 'CR0 3RL' or '36 Factory Lane'" class="form-control" autocomplete="off" ng-model="searchText.description">
+		  </div>
+		    
+			  
+		  <ul ng-repeat="pinPointList in pinPointList | filter:searchText ">
+		    <li><a href="#">{{pinPointList.description}}</a></li>
+		  </ul>
+
+		  
+		</form> -->
+
+    	
+	<div class='container-fluid typeahead-demo' ng-controller="TypeaheadCtrl">
+
+    
+
+    
+    <div class="form-group">
+    <input type="text" ng-model="customSelected" placeholder="E.g. 'AE91 - 1AB
+'" uib-typeahead="state as state.Pinpoint for state in statesWithFlags | filter:{Pinpoint:$viewValue}" typeahead-template-url="customTemplate.html" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
+</div>
+
+    <pre>Pin Point: {{customSelected | json}}</pre>
+    
+</div>
+
+
+    </div>
+  </div>
+  
+</div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
+ <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"> </script>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"> </script>
+ <script src="assets/js/ui-bootstrap-tpls-1.1.2.min.js"> </script>
+ <script src="assets/js/app.js"></script>
+
+ <script type="text/ng-template" id="customTemplate.html">
+  <a>
+      <span ng-bind-html="match">{{match.model['Address Line 1']}}, {{match.model['Address Line 2'] }}</span>, 
+      <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+  </a>
+
+</script>
+
+<script type="text/ng-template" id="customPopupTemplate.html">
+  <div class="custom-popup-wrapper"
+     ng-style="{top: position().top+'px', left: position().left+'px'}"
+     style="display: block;"
+     ng-show="isOpen() && !moveInProgress"
+     aria-hidden="{{!isOpen()}}">
+    <p class="message">select location from drop down.</p>
+{{matches | json}}
+    <ul class="dropdown-menu" role="listbox">
+        <li ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }"
+            ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option" id="{{::match.id}}">
+            <div uib-typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
+        </li>
+    </ul>
+  </div>
+</script>
+
+</body>
+</html>
